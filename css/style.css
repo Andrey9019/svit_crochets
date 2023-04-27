@@ -137,6 +137,17 @@ img {
   background-color: var(--dark);
   text-align: center;
   padding: 188px 0;
+  background-image: linear-gradient(
+      to right,
+      rgba(46, 47, 66, 0.7),
+      rgba(46, 47, 66, 0.7)
+    ),
+    url(../images/img-icon/hero/people-office\ 1.jpg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  min-width: 1440px;
+  height: 600px;
 }
 .hero-txt {
   color: var(--light-background);
@@ -170,8 +181,29 @@ img {
   color: var(--text);
 }
 .main-flex {
-  display: flex;
+  display: inline-flex;
   gap: 24px;
+}
+.main-flex .list-headline-item::before {
+  content: '';
+  display: block;
+  height: 112px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+}
+.icon-antenna {
+  background-image: url(../images/img-icon/feature/Icon\ 1.svg);
+}
+
+.icon-clock {
+  background-image: url(../images/img-icon/feature/Icon\ 2.svg);
+}
+.icon-diagram {
+  background-image: url(../images/img-icon/feature/Icon\ 3.svg);
+}
+.icon-austronaft {
+  background-image: url(../images/img-icon/feature/Icon\ 4.svg);
 }
 
 .list-headline-item {
