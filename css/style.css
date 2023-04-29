@@ -188,7 +188,6 @@ img {
   width: 264px;
   height: 112px;
   background-color: var(--light);
-  padding: 24px 100px;
 }
 .list-headline-item {
   width: calc((100% - 72px) / 4);
@@ -272,6 +271,7 @@ img {
 .icon-media {
   width: 16px;
   height: 16px;
+  fill: currentColor;
 }
 .icon-link {
   height: 40px;
@@ -281,14 +281,71 @@ img {
   align-items: center;
   border-radius: 50%;
   justify-content: center;
+  color: var(--light);
 }
 .icon-link:hover {
   background-color: var(--pressed-state);
 }
+/* section 5 */
+
+.list-customers {
+  width: 104px;
+  height: 56px;
+  display: flex;
+}
+.container-customer {
+  width: 1158px;
+  margin: 0 auto;
+  padding: 0 15px;
+  display: inline-flex;
+}
+
+.item-customer {
+}
+
+.customer-link {
+  height: 88px;
+  width: 168px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  /* color: var(--light); */
+  border: 1px solid #8e8f99;
+  border-radius: 4px;
+}
+
+.healine-customer {
+  /* font-style: normal;
+font-weight: 700;
+font-size: 36px;
+line-height: 40px; */
+  /* identical to box height, or 111% */
+  /* text-align: center;
+letter-spacing: 0.02em;
+text-transform: capitalize;
+
+color: #2E2F42; */
+}
+
+.icon-customer {
+  width: 104px;
+  height: 56px;
+}
+
 /* footer */
 .footer {
   background-color: var(--dark);
   padding: 100px 0;
+}
+
+.footer-display-container {
+  display: flex;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.footer-logo-txt {
+  margin-right: 120px;
 }
 
 .footer-txt {
@@ -336,16 +393,23 @@ img {
   align-items: center;
   border-radius: 50%;
   justify-content: center;
+  color: var(--light);
 }
 .footer-icon-media {
   width: 24px;
   height: 24px;
+  fill: currentColor;
 }
 .footer-icon-link:hover {
   background-color: #31d0aa;
 }
+
 .footer-social-media {
+  color: var(--light);
+  line-height: 1.5;
+  letter-spacing: 0.02em;
 }
+
 /* style button */
 
 .hero-button,
