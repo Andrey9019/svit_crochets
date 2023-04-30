@@ -283,9 +283,10 @@ img {
 }
 
 .list-media {
-  display: inline-flex;
+  display: flex;
   gap: 24px;
   margin-top: 8px;
+  justify-content: center;
 }
 .icon-media {
   width: 16px;
@@ -353,6 +354,7 @@ img {
 .footer-display-container {
   display: flex;
   margin: 0 auto;
+  align-items: baseline;
   padding: 0 15px;
 }
 
@@ -392,9 +394,8 @@ img {
 }
 
 .footer-list-media {
-  display: inline-flex;
+  display: flex;
   gap: 24px;
-  margin-top: 16px;
 }
 
 .footer-icon-link {
@@ -418,10 +419,11 @@ img {
 }
 
 .footer-social-media {
-  color: var(--light);
+  color: var(--light-background);
   line-height: 1.5;
   letter-spacing: 0.02em;
   font-weight: 500;
+  margin-bottom: 16px;
 }
 
 /* style button */
