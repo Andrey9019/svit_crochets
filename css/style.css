@@ -211,6 +211,13 @@ img {
 }
 
 .icon-features {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 112px;
+  background-color: #f4f4fd;
+  border-radius: 4px;
+  margin-bottom: 8px;
 }
 /* section3 */
 .section-doing {
@@ -309,7 +316,7 @@ img {
 .customer-link {
   height: 88px;
   width: 168px;
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
   border: 1px solid #8e8f99;
