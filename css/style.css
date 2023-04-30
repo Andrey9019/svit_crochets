@@ -424,6 +424,7 @@ img {
   letter-spacing: 0.02em;
   font-weight: 500;
   margin-bottom: 16px;
+  display: inline-block;
 }
 
 /* style button */
