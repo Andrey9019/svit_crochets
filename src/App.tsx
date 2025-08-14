@@ -1,92 +1,29 @@
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import {
-  Cart,
-  Checkout,
-  HomeLayout,
-  Landing,
-  Login,
-  OrderConfirmation,
-  OrderHistory,
-  Register,
-  Search,
-  Shop,
-  SingleOrderHistory,
-  SingleProduct,
-  UserProfile,
-} from "./pages";
-import { checkoutAction, searchAction } from "./actions/index";
-import { shopCategoryLoader } from "./pages/Shop";
-import { loader as orderHistoryLoader } from "./pages/OrderHistory";
-import { loader as singleOrderLoader } from "./pages/SingleOrderHistory";
-
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <HomeLayout />,
-    children: [
-      {
-        index: true,
-        element: <Landing />,
-      },
-      {
-        path: "shop",
-        element: <Shop />,
-      },
-      {
-        path: "shop/:category",
-        element: <Shop />,
-        loader: shopCategoryLoader,
-      },
-      {
-        path: "product/:id",
-        element: <SingleProduct />,
-      },
-      {
-        path: "cart",
-        element: <Cart />,
-      },
-      {
-        path: "checkout",
-        element: <Checkout />,
-        action: checkoutAction,
-      },
-      {
-        path: "search",
-        action: searchAction,
-        element: <Search />,
-      },
-      {
-        path: "login",
-        element: <Login />,
-      },
-      {
-        path: "register",
-        element: <Register />,
-      },
-      {
-        path: "order-confirmation",
-        element: <OrderConfirmation />,
-      },
-      {
-        path: "user-profile",
-        element: <UserProfile />,
-      },
-      {
-        path: "order-history",
-        element: <OrderHistory />,
-        loader: orderHistoryLoader,
-      },
-      {
-        path: "order-history/:id",
-        element: <SingleOrderHistory />,
-        loader: singleOrderLoader
-      },
-    ],
-  },
-]);
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import Home from "./pages/Home";
+import Catalog from "./pages/Catalog";
+import ProductPage from "./pages/Product";
+import Contacts from "./pages/Contacts";
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <Router>
+      <div className="App d-flex flex-column min-vh-100">
+        <Header />
+        <main className="flex-grow-1">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/catalog" element={<Catalog />} />
+            <Route path="/product/:id" element={<ProductPage />} />
+            <Route path="/contacts" element={<Contacts />} />
+          </Routes>
+        </main>
+        <Footer />
+      </div>
+    </Router>
+  );
 }
 
 export default App;

@@ -1,37 +1,60 @@
-import { HiBars3 } from "react-icons/hi2";
-import { HiOutlineUser } from "react-icons/hi2";
-import { HiOutlineMagnifyingGlass } from "react-icons/hi2";
-import { HiOutlineShoppingBag } from "react-icons/hi2";
-import { Link } from "react-router-dom";
-import SidebarMenu from "./SidebarMenu";
-import { useState } from "react";
+import React from "react";
+import { Link, useLocation } from "react-router-dom";
 
-const Header = () => {
-  const [ isSidebarOpen, setIsSidebarOpen ] = useState(false);
+const Header: React.FC = () => {
+  const location = useLocation();
+
+  const isActive = (path: string) => {
+    return location.pathname === path ? "active" : "";
+  };
+
   return (
-    <>
-    <header className="max-w-screen-2xl flex text-center justify-between items-center py-4 px-5 text-black mx-auto max-sm:px-5 max-[400px]:px-3">
-      <HiBars3 className="text-2xl max-sm:text-xl mr-20 max-lg:mr-0 cursor-pointer" onClick={() => setIsSidebarOpen(true)} />
-      <Link
-        to="/"
-        className="text-4xl font-light tracking-[1.08px] max-sm:text-3xl max-[400px]:text-2xl"
-      >
-        FASHION
-      </Link>
-      <div className="flex gap-4 items-center max-sm:gap-2">
-        <Link to="/search">
-          <HiOutlineMagnifyingGlass className="text-2xl max-sm:text-xl" />
+    <nav
+      className="navbar navbar-expand-lg navbar-light"
+      style={{ backgroundColor: "#F5E6E8" }}
+    >
+      <div className="container">
+        <Link className="navbar-brand fw-bold text-dark" to="/">
+          🧶 SvBag
         </Link>
-        <Link to="/login">
-          <HiOutlineUser className="text-2xl max-sm:text-xl" />
-        </Link>
-        <Link to="/cart">
-          <HiOutlineShoppingBag className="text-2xl max-sm:text-xl" />
-        </Link>
+
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span className="navbar-toggler-icon"></span>
+        </button>
+
+        <div className="collapse navbar-collapse" id="navbarNav">
+          <ul className="navbar-nav ms-auto">
+            <li className="nav-item">
+              <Link className={`nav-link ${isActive("/")}`} to="/">
+                Головна
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link
+                className={`nav-link ${isActive("/catalog")}`}
+                to="/catalog"
+              >
+                Каталог
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link
+                className={`nav-link ${isActive("/contacts")}`}
+                to="/contacts"
+              >
+                Контакти
+              </Link>
+            </li>
+          </ul>
+        </div>
       </div>
-    </header>
-    <SidebarMenu isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
-    </>
+    </nav>
   );
 };
+
 export default Header;

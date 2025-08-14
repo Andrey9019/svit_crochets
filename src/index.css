@@ -1,53 +1,75 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Lora:wght@400;500;600&display=swap');
+
+:root {
+  --primary-color: #F5E6E8;
+  --secondary-color: #D9E4DD;
+  --accent-color: #6c757d;
+  --text-dark: #2c3e50;
+  --text-muted: #6c757d;
+  --success-color: #28a745;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
 body {
-  font-family: "Merriweather", serif;
+  font-family: 'Montserrat', sans-serif;
+  color: var(--text-dark);
+  background-color: #ffffff;
+  line-height: 1.6;
 }
 
-.banner {
-  height: 800px;
-  background: linear-gradient(
-      0deg,
-      rgba(0, 0, 0, 0.25) 0%,
-      rgba(0, 0, 0, 0.15) 100%
-    ),
-    url("/src/assets/banner1.jpg") lightgray 50% / cover no-repeat;
-  background-position: 10% 25%;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Lora', serif;
+  font-weight: 600;
 }
 
-.shop-banner {
-  background: linear-gradient(
-      0deg,
-      rgba(0, 0, 0, 0.25) 0%,
-      rgba(0, 0, 0, 0.25) 100%
-    ),
-    url("/src/assets/shopbanner1.png") lightgray 3.589px 1.817px / 100% 197.462%
-      no-repeat;
+.btn-primary {
+  background-color: var(--accent-color);
+  border-color: var(--accent-color);
 }
 
-/* Add these styles to your CSS file */
-.sidebar-enter {
-  transform: translateX(-100%);
-  transition: transform 0.3s ease-in-out;
-}
-.sidebar-enter-active {
-  transform: translateX(0);
-}
-.sidebar-exit {
-  transform: translateX(0);
-  transition: transform 0.3s ease-in-out;
-}
-.sidebar-exit-active {
-  transform: translateX(-100%);
+.btn-primary:hover {
+  background-color: #5a6268;
+  border-color: #5a6268;
 }
 
-
-.singleOrder-table td{
-  text-align: left;
+.btn-outline-primary {
+  color: var(--accent-color);
+  border-color: var(--accent-color);
 }
 
-.singleOrder-table th{
-  text-align: left;
+.btn-outline-primary:hover {
+  background-color: var(--accent-color);
+  border-color: var(--accent-color);
+}
+
+.card {
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1) !important;
+}
+
+.navbar-nav .nav-link.active {
+  color: var(--accent-color) !important;
+  font-weight: 500;
+}
+
+.text-success {
+  color: var(--success-color) !important;
+}
+
+.badge.bg-light {
+  background-color: var(--secondary-color) !important;
 }
