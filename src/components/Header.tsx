@@ -15,7 +15,7 @@ const Header: React.FC = () => {
     >
       <div className="container">
         <Link className="navbar-brand fw-bold text-dark" to="/">
-          🧶 SvBag
+          🧶 Svit Crochets
         </Link>
 
         <button
