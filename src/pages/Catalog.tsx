@@ -52,10 +52,12 @@ const Catalog: React.FC = () => {
     <div className="container py-5">
       <div className="row">
         <div className="col-12">
-          <h1 className="h2 text-dark mb-4">Каталог в'язаних сумок</h1>
+          <h1 className="h2 text-dark text-center mb-4">
+            Каталог в'язаних сумок
+          </h1>
 
           {/* Filters */}
-          <div className="mb-4">
+          {/* <div className="mb-4">
             <h5 className="text-dark mb-3">Фільтр за кольором:</h5>
             <div className="d-flex flex-wrap gap-2">
               {colors.map((color) => (
@@ -72,12 +74,12 @@ const Catalog: React.FC = () => {
                 </button>
               ))}
             </div>
-          </div>
+          </div> */}
 
           {/* Results count */}
-          <p className="text-muted mb-4">
+          {/* <p className="text-muted mb-4">
             Знайдено {filteredProducts.length} сумок
-          </p>
+          </p> */}
 
           {/* Products Grid */}
           {filteredProducts.length > 0 ? (

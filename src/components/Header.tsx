@@ -11,10 +11,10 @@ const Header: React.FC = () => {
   return (
     <nav
       className="navbar navbar-expand-lg navbar-light"
-      style={{ backgroundColor: "#F5E6E8" }}
+      style={{ backgroundColor: "#E6B3B3" }}
     >
       <div className="container">
-        <Link className="navbar-brand fw-bold text-dark" to="/">
+        <Link className="navbar-brand fw-bold text-white" to="/">
           🧶 Svit Crochets
         </Link>
 
@@ -27,7 +27,7 @@ const Header: React.FC = () => {
           <span className="navbar-toggler-icon"></span>
         </button>
 
-        <div className="collapse navbar-collapse" id="navbarNav">
+        <div className="collapse navbar-collapse text-white" id="navbarNav">
           <ul className="navbar-nav ms-auto">
             <li className="nav-item">
               <Link className={`nav-link ${isActive("/")}`} to="/">

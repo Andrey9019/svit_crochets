@@ -22,10 +22,10 @@ const Home: React.FC = () => {
   }, []);
 
   return (
-    <div className="container py-5">
+    <div className="">
       {/* Hero Section */}
       <div
-        className="hero-section text-center mb-5 py-5 rounded-4 position-relative overflow-hidden"
+        className="hero-section text-center mb-5 py-5 position-relative overflow-hidden"
         style={{
           background:
             'linear-gradient(rgba(245, 230, 232, 0.9), rgba(217, 228, 221, 0.1)), url("https://images.unsplash.com/photo-1591561954557-26941169b49e?w=1200&h=600&fit=crop") center/cover',
@@ -50,9 +50,9 @@ const Home: React.FC = () => {
       </div>
 
       {/* Top Products Section */}
-      <div className="mb-5">
+      <div className="mb-5 container">
         <h2 className="h3 text-dark mb-4 text-center">
-          Наші найпопулярніші сумки
+          {/* Наші найпопулярніші сумки */}
         </h2>
         <div className="row g-4">
           {topProducts.map((product) => (
@@ -64,7 +64,7 @@ const Home: React.FC = () => {
       </div>
 
       {/* Features Section */}
-      <div className="row g-4 mt-5">
+      <div className="row g-4 mt-5 container mx-auto">
         <div className="col-md-4 text-center">
           <div className="p-4">
             <div className="fs-1 mb-3">🧶</div>

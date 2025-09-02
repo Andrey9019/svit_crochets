@@ -8,35 +8,29 @@ interface ProductCardProps {
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   return (
-    <Link
-      className="card h-100 shadow-sm border-0 text-decoration-none"
-      to={`/product/${product.id}`}
-    >
-      <img
-        src={product.images[0]}
-        className="card-img-top"
-        alt={product.name}
-        style={{ height: "250px", objectFit: "cover" }}
-      />
-      <div className="card-body d-flex flex-column">
-        <h5 className="card-title fw-bold text-dark mb-2">{product.name}</h5>
-        <p className="card-text text-muted mb-2">
-          <span className="badge bg-light text-dark border">
-            {product.color}
-          </span>
-        </p>
-        <p className="card-text text-success fw-bold fs-5 mb-3">
-          {product.price} грн
-        </p>
-
-        <p className="card-text text-muted mb-3 flex-grow-1">
-          {product.description}
-        </p>
-        <div className="mt-auto">
-          <div className="btn btn-outline-primary w-100">Детальніше</div>
+    <div className="mt-4">
+      <Link
+        className="card border-0 text-decoration-none mb-3"
+        to={`/product/${product.id}`}
+      >
+        <img
+          src={product.images[0]}
+          className="card-img-top"
+          alt={product.name}
+          style={{ height: "250px", objectFit: "cover" }}
+        />
+        {/* <div className="card-body d-flex flex-column">
+          <p className="card-text text-success fw-bold fs-5">
+            {product.price} ₴
+          </p>
+        </div> */}
+      </Link>
+      <div className="mt-auto">
+        <div className="btn btn-outline-primary fw-bold w-100">
+          {product.name}
         </div>
       </div>
-    </Link>
+    </div>
   );
 };
 

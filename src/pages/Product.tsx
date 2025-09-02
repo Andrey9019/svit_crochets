@@ -5,6 +5,7 @@ import type { Product } from "../types";
 const ProductPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const [product, setProduct] = useState<Product | null>(null);
+  const [showModal, setShowModal] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [loading, setLoading] = useState(true);
 
@@ -39,6 +40,15 @@ const ProductPage: React.FC = () => {
     }
   };
 
+  const handleImageClick = () => {
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setCurrentImageIndex(currentImageIndex);
+  };
+
   if (loading) {
     return (
       <div className="container py-5 text-center">
@@ -71,6 +81,7 @@ const ProductPage: React.FC = () => {
               className="img-fluid rounded shadow"
               alt={product.name}
               style={{ width: "100%", height: "400px", objectFit: "cover" }}
+              onClick={handleImageClick}
             />
 
             {/* Image Navigation */}
@@ -149,12 +160,83 @@ const ProductPage: React.FC = () => {
             <Link to="/contacts" className="btn btn-primary btn-lg">
               Замовити
             </Link>
-            <Link to="/catalog" className="btn btn-outline-secondary">
+            <Link to="/catalog" className="btn btn-outline-primary">
               Повернутися до каталогу
             </Link>
           </div>
         </div>
       </div>
+      // // //
+      {/* Bootstrap Modal */}
+      {product && (
+        <div
+          className={`modal fade ${showModal ? "show d-block" : ""}`}
+          tabIndex={-1}
+          style={{ backgroundColor: "rgba(0,0,0,0.5)" }}
+        >
+          <div className="modal-dialog modal-lg">
+            <div className="modal-content">
+              <div className="modal-header">
+                <button
+                  type="button"
+                  className="btn-close"
+                  onClick={handleCloseModal}
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div className="modal-body">
+                <div
+                  id="productModalCarousel"
+                  className="carousel slide"
+                  data-bs-ride="carousel"
+                >
+                  <div className="carousel-inner">
+                    {product.images.map((image, index) => (
+                      <img
+                        src={image}
+                        key={index}
+                        className={`carousel-item ${
+                          index === currentImageIndex ? "active" : ""
+                        }`}
+                        alt={`${product.name} ${index + 1}`}
+                      />
+                    ))}
+                  </div>
+                  {product.images.length > 1 && (
+                    <>
+                      <button
+                        className="carousel-control-prev"
+                        type="button"
+                        data-bs-target="#productModalCarousel"
+                        data-bs-slide="prev"
+                      >
+                        <span
+                          className="carousel-control-prev-icon"
+                          aria-hidden="true"
+                        ></span>
+                        <span className="visually-hidden">Previous</span>
+                      </button>
+                      <button
+                        className="carousel-control-next"
+                        type="button"
+                        data-bs-target="#productModalCarousel"
+                        data-bs-slide="next"
+                      >
+                        <span
+                          className="carousel-control-next-icon"
+                          aria-hidden="true"
+                        ></span>
+                        <span className="visually-hidden">Next</span>
+                      </button>
+                    </>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+      // // //
     </div>
   );
 };
