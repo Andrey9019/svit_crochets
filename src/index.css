@@ -125,6 +125,14 @@ h6 {
   /* padding: 0; */
 }
 
+
+.rounded-custom {
+  border-top-right-radius: 35px;
+  border-bottom-left-radius: 35px;
+  border-top-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
 .navbar-nav .nav-link.active {
   color: #ffffff !important;
   font-weight: 500;
