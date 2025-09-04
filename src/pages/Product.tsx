@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import type { Product } from "../types";
+import { db } from "../firebase";
+import { doc, getDoc } from "firebase/firestore";
 
 const ProductPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -12,10 +14,16 @@ const ProductPage: React.FC = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await fetch("/src/data/products.json");
-        const products: Product[] = await response.json();
-        const foundProduct = products.find((p) => p.id === Number(id));
-        setProduct(foundProduct || null);
+        const docRef = doc(db, "products", id!);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          const productData = { id: docSnap.id, ...docSnap.data() } as Product;
+          console.log("Дані продукту з Firestore:", productData); // Виводимо в консоль
+          setProduct(productData);
+        } else {
+          console.log("Продукт не знайдено для id:", id);
+          setProduct(null);
+        }
         setLoading(false);
       } catch (error) {
         console.error("Помилка завантаження продукту:", error);
@@ -46,7 +54,6 @@ const ProductPage: React.FC = () => {
 
   const handleCloseModal = () => {
     setShowModal(false);
-    setCurrentImageIndex(currentImageIndex);
   };
 
   if (loading) {
@@ -63,7 +70,10 @@ const ProductPage: React.FC = () => {
     return (
       <div className="container py-5 text-center">
         <h2 className="text-muted">Сумку не знайдено</h2>
-        <Link to="/catalog" className="btn btn-primary">
+        <Link
+          to="/catalog"
+          className="btn btn-outline-primary btn-custom-gradient"
+        >
           Повернутися до каталогу
         </Link>
       </div>
@@ -78,13 +88,16 @@ const ProductPage: React.FC = () => {
           <div className="position-relative">
             <img
               src={product.images[currentImageIndex]}
-              className="img-fluid rounded shadow"
+              className="img-fluid rounded shadow rounded-custom"
               alt={product.name}
-              style={{ width: "100%", height: "400px", objectFit: "cover" }}
+              style={{
+                width: "100%",
+                height: "400px",
+                objectFit: "cover",
+                cursor: "zoom-in",
+              }}
               onClick={handleImageClick}
             />
-
-            {/* Image Navigation */}
             {product.images.length > 1 && (
               <>
                 <button
@@ -103,14 +116,12 @@ const ProductPage: React.FC = () => {
                 >
                   ›
                 </button>
-
-                {/* Image Indicators */}
                 <div className="d-flex justify-content-center mt-3">
                   {product.images.map((_, index) => (
                     <button
                       key={index}
                       onClick={() => setCurrentImageIndex(index)}
-                      className={`btn btn-sm mx-1 ${
+                      className={`btn btn-sm mx-1 btn-custom-gradient ${
                         index === currentImageIndex
                           ? "btn-primary"
                           : "btn-outline-primary"
@@ -128,24 +139,20 @@ const ProductPage: React.FC = () => {
         {/* Product Info */}
         <div className="col-lg-6">
           <h1 className="h2 text-dark mb-3">{product.name}</h1>
-
           <div className="mb-3">
             <span className="badge bg-light text-dark border fs-6">
               {product.color}
             </span>
           </div>
-
           <div className="mb-4">
             <span className="text-success fw-bold fs-2">
               {product.price} грн
             </span>
           </div>
-
           <div className="mb-4">
             <h5 className="text-dark mb-2">Опис:</h5>
             <p className="text-muted">{product.description}</p>
           </div>
-
           <div className="mb-4">
             <h5 className="text-dark mb-2">Особливості:</h5>
             <ul className="text-muted">
@@ -155,18 +162,23 @@ const ProductPage: React.FC = () => {
               <li>Зручні ручки</li>
             </ul>
           </div>
-
           <div className="d-grid gap-2">
-            <Link to="/contacts" className="btn btn-primary btn-lg">
+            <Link
+              to="/contacts"
+              className="btn btn-primary btn-lg btn-custom-gradient"
+            >
               Замовити
             </Link>
-            <Link to="/catalog" className="btn btn-outline-primary">
+            <Link
+              to="/catalog"
+              className="btn btn-outline-primary btn-custom-gradient"
+            >
               Повернутися до каталогу
             </Link>
           </div>
         </div>
       </div>
-      // // //
+
       {/* Bootstrap Modal */}
       {product && (
         <div
@@ -177,6 +189,7 @@ const ProductPage: React.FC = () => {
           <div className="modal-dialog modal-lg">
             <div className="modal-content">
               <div className="modal-header">
+                <h5 className="modal-title">{product.name}</h5>
                 <button
                   type="button"
                   className="btn-close"
@@ -192,14 +205,23 @@ const ProductPage: React.FC = () => {
                 >
                   <div className="carousel-inner">
                     {product.images.map((image, index) => (
-                      <img
-                        src={image}
+                      <div
                         key={index}
                         className={`carousel-item ${
                           index === currentImageIndex ? "active" : ""
                         }`}
-                        alt={`${product.name} ${index + 1}`}
-                      />
+                      >
+                        <img
+                          src={image}
+                          alt={`${product.name} ${index + 1}`}
+                          className="rounded-custom"
+                          style={{
+                            maxWidth: "100%",
+                            maxHeight: "600px",
+                            objectFit: "contain",
+                          }}
+                        />
+                      </div>
                     ))}
                   </div>
                   {product.images.length > 1 && (
@@ -236,7 +258,6 @@ const ProductPage: React.FC = () => {
           </div>
         </div>
       )}
-      // // //
     </div>
   );
 };

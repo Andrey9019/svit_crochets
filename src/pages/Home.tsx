@@ -3,16 +3,27 @@ import { Link } from "react-router-dom";
 import ProductCard from "../components/ProductCard";
 import type { Product } from "../types";
 
+import { db } from "../firebase";
+import { collection, getDocs } from "firebase/firestore";
+
 const Home: React.FC = () => {
   const [topProducts, setTopProducts] = useState<Product[]>([]);
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch("/src/data/products.json");
-        const products: Product[] = await response.json();
-        // Показуємо перші 4 сумки як топ
-        setTopProducts(products.slice(0, 4));
+        const response = await getDocs(collection(db, "products"));
+        const productsData: Product[] = response.docs.map(
+          (doc) =>
+            ({
+              id: doc.id,
+              ...doc.data(),
+            } as Product)
+        );
+        setTopProducts(productsData.slice(0, 4)); // Відображаємо лише перші 4 продукти
+        // setFilteredProducts(productsData);
+        // setLoading(false);
+        console.log("Дані з Firestore:", productsData); // Виводимо дані в консоль
       } catch (error) {
         console.error("Помилка завантаження продуктів:", error);
       }

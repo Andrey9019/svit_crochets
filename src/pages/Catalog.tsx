@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import ProductCard from "../components/ProductCard";
 import type { Product } from "../types";
 
+import { db } from "../firebase";
+import { collection, getDocs } from "firebase/firestore";
+
 const Catalog: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
@@ -11,11 +14,18 @@ const Catalog: React.FC = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch("/src/data/products.json");
-        const productsData: Product[] = await response.json();
+        const response = await getDocs(collection(db, "products"));
+        const productsData: Product[] = response.docs.map(
+          (doc) =>
+            ({
+              id: doc.id,
+              ...doc.data(),
+            } as Product)
+        );
         setProducts(productsData);
         setFilteredProducts(productsData);
         setLoading(false);
+        console.log("Дані з Firestore:", productsData); // Виводимо дані в консоль
       } catch (error) {
         console.error("Помилка завантаження продуктів:", error);
         setLoading(false);
