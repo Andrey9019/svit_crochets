@@ -1,36 +1,29 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { fetchProducts } from "../utils/api/allFeatch";
 import ProductCard from "../components/ProductCard";
 import type { Product } from "../types";
+import { Link } from "react-router-dom";
 
-import { db } from "../firebase";
-import { collection, getDocs } from "firebase/firestore";
-
-const Home: React.FC = () => {
+export default function Home() {
   const [topProducts, setTopProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await getDocs(collection(db, "products"));
-        const productsData: Product[] = response.docs.map(
-          (doc) =>
-            ({
-              id: doc.id,
-              ...doc.data(),
-            } as Product)
-        );
-        setTopProducts(productsData.slice(0, 4)); // Відображаємо лише перші 4 продукти
-        // setFilteredProducts(productsData);
-        // setLoading(false);
-        console.log("Дані з Firestore:", productsData); // Виводимо дані в консоль
-      } catch (error) {
-        console.error("Помилка завантаження продуктів:", error);
-      }
-    };
-
-    fetchProducts();
+    fetchProducts().then((productsData) => {
+      setTopProducts(productsData.slice(0, 4));
+      setLoading(false);
+    });
   }, []);
+
+  if (loading) {
+    return (
+      <div className="container py-5 text-center">
+        <div className="spinner-border text-primary" role="status">
+          <span className="visually-hidden">Завантаження...</span>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="">
@@ -106,6 +99,4 @@ const Home: React.FC = () => {
       </div>
     </div>
   );
-};
-
-export default Home;
+}

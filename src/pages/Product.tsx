@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import type { Product } from "../types";
-import { db } from "../firebase";
-import { doc, getDoc } from "firebase/firestore";
 
-const ProductPage: React.FC = () => {
+import { fetchProduct } from "../utils/api/allFeatch";
+
+export default function ProductPage() {
   const { id } = useParams<{ id: string }>();
   const [product, setProduct] = useState<Product | null>(null);
   const [showModal, setShowModal] = useState(false);
@@ -12,27 +12,11 @@ const ProductPage: React.FC = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchProduct = async () => {
-      try {
-        const docRef = doc(db, "products", id!);
-        const docSnap = await getDoc(docRef);
-        if (docSnap.exists()) {
-          const productData = { id: docSnap.id, ...docSnap.data() } as Product;
-          console.log("Дані продукту з Firestore:", productData); // Виводимо в консоль
-          setProduct(productData);
-        } else {
-          console.log("Продукт не знайдено для id:", id);
-          setProduct(null);
-        }
-        setLoading(false);
-      } catch (error) {
-        console.error("Помилка завантаження продукту:", error);
-        setLoading(false);
-      }
-    };
-
     if (id) {
-      fetchProduct();
+      fetchProduct(id).then((productData) => {
+        setProduct(productData);
+        setLoading(false);
+      });
     }
   }, [id]);
 
@@ -260,6 +244,4 @@ const ProductPage: React.FC = () => {
       )}
     </div>
   );
-};
-
-export default ProductPage;
+}

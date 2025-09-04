@@ -1,38 +1,20 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
+import { fetchProducts } from "../utils/api/allFeatch";
 import ProductCard from "../components/ProductCard";
 import type { Product } from "../types";
 
-import { db } from "../firebase";
-import { collection, getDocs } from "firebase/firestore";
-
-const Catalog: React.FC = () => {
+export default function Catalog() {
   const [products, setProducts] = useState<Product[]>([]);
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const [selectedColor, setSelectedColor] = useState<string>("Всі");
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await getDocs(collection(db, "products"));
-        const productsData: Product[] = response.docs.map(
-          (doc) =>
-            ({
-              id: doc.id,
-              ...doc.data(),
-            } as Product)
-        );
-        setProducts(productsData);
-        setFilteredProducts(productsData);
-        setLoading(false);
-        console.log("Дані з Firestore:", productsData); // Виводимо дані в консоль
-      } catch (error) {
-        console.error("Помилка завантаження продуктів:", error);
-        setLoading(false);
-      }
-    };
-
-    fetchProducts();
+    fetchProducts().then((productsData) => {
+      setProducts(productsData);
+      setFilteredProducts(productsData);
+      setLoading(false);
+    });
   }, []);
 
   useEffect(() => {
@@ -46,7 +28,7 @@ const Catalog: React.FC = () => {
     }
   }, [selectedColor, products]);
 
-  const colors = ["Всі", ...Array.from(new Set(products.map((p) => p.color)))];
+  // const colors = ["Всі", ...Array.from(new Set(products.map((p) => p.color)))];
 
   if (loading) {
     return (
@@ -87,16 +69,16 @@ const Catalog: React.FC = () => {
           </div> */}
 
           {/* Results count */}
-          {/* <p className="text-muted mb-4">
+          <p className="text-muted mb-4">
             Знайдено {filteredProducts.length} сумок
-          </p> */}
+          </p>
 
           {/* Products Grid */}
           {filteredProducts.length > 0 ? (
             <div className="row g-4">
-              {filteredProducts.map((product) => (
-                <div key={product.id} className="col-lg-4 col-md-6">
-                  <ProductCard product={product} showDetails={true} />
+              {filteredProducts.map((products) => (
+                <div key={products.id} className="col-lg-4 col-md-6">
+                  <ProductCard product={products} />
                 </div>
               ))}
             </div>
@@ -118,6 +100,4 @@ const Catalog: React.FC = () => {
       </div>
     </div>
   );
-};
-
-export default Catalog;
+}
