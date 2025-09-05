@@ -1,0 +1,1 @@
+{"root":["./src/app.tsx","./src/firebase.ts","./src/main.tsx","./src/vite-env.d.ts","./src/components/footer.tsx","./src/components/header.tsx","./src/components/productcard.tsx","./src/pages/catalog.tsx","./src/pages/contacts.tsx","./src/pages/home.tsx","./src/pages/product.tsx","./src/types/index.ts","./src/utils/api/allfeatch.ts","./vite.config.ts"],"version":"5.8.3"}

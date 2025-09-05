@@ -4,13 +4,13 @@ import { getDatabase } from "firebase/database";
 import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCqHHWzIe6qTNbz24Gah9CFBRplSib4UtE",
-  authDomain: "svit-crochets.firebaseapp.com",
-  projectId: "svit-crochets",
-  storageBucket: "svit-crochets.firebasestorage.app",
-  messagingSenderId: "196304200643",
-  appId: "1:196304200643:web:76e1d772d0668e12a21376",
-  measurementId: "G-V6SH5WTP45",
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
 };
 
 const app = initializeApp(firebaseConfig);

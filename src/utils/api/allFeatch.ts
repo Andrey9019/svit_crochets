@@ -12,7 +12,7 @@ export const fetchProducts = async (): Promise<Product[]> => {
           ...doc.data(),
         } as Product)
     );
-    console.log("Дані з Firestore:", productsData);
+
     return productsData;
   } catch (error) {
     console.error("Помилка завантаження продуктів:", error);
@@ -28,7 +28,7 @@ export const fetchProduct = async (id: string): Promise<Product | null> => {
         id: Number(docSnap.id),
         ...docSnap.data(),
       } as Product;
-      console.log("Дані продукту з Firestore:", productData);
+
       return productData;
     }
     console.log("Продукт не знайдено для id:", id);
