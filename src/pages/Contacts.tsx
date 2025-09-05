@@ -129,7 +129,7 @@ const Contacts: React.FC = () => {
 
         {/* Contact Information */}
         <div className="col-lg-6">
-          <div className="card shadow-sm border-0 mb-4">
+          {/* <div className="card shadow-sm border-0 mb-4">
             <div className="card-body p-4">
               <h3 className="h4 text-dark mb-4">Контактна інформація</h3>
 
@@ -173,12 +173,12 @@ const Contacts: React.FC = () => {
                 </p>
               </div>
             </div>
-          </div>
+          </div> */}
 
           {/* Social Media */}
           <div className="card shadow-sm border-0">
             <div className="card-body p-4">
-              <h3 className="h4 text-dark mb-4">Ми в соціальних мережах</h3>
+              <h3 className="h4 text-dark mb-4">Мої соціальні мережі</h3>
 
               <div className="d-grid gap-2">
                 <a
@@ -198,26 +198,6 @@ const Contacts: React.FC = () => {
                   📱 Telegram
                 </a>
               </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Google Maps */}
-      <div className="row mt-5">
-        <div className="col-12">
-          <div className="card shadow-sm border-0">
-            <div className="card-body p-0">
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2540.0!2d30.5234!3d50.4501!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNTDCsDI3JzAwLjQiTiAzMMKwMzEnMjQuMyJF!5e0!3m2!1suk!2sua!4v1234567890"
-                width="100%"
-                height="400"
-                style={{ border: 0 }}
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                title="Наше розташування"
-              ></iframe>
             </div>
           </div>
         </div>

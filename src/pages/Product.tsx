@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import type { Product } from "../types";
+import ProductCard from "../components/ProductCard";
 
 import { fetchProduct } from "../utils/api/allFeatch";
+import { fetchProducts } from "../utils/api/allFeatch";
 
 export default function ProductPage() {
   const { id } = useParams<{ id: string }>();
@@ -10,6 +12,8 @@ export default function ProductPage() {
   const [showModal, setShowModal] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [loading, setLoading] = useState(true);
+
+  const [topProducts, setTopProducts] = useState<Product[]>([]);
 
   useEffect(() => {
     if (id) {
@@ -19,6 +23,26 @@ export default function ProductPage() {
       });
     }
   }, [id]);
+
+  useEffect(() => {
+    fetchProducts().then((productsData) => {
+      setTopProducts(productsData.slice(0, 4));
+      setLoading(false);
+    });
+  }, []);
+
+  useEffect(() => {
+    // Заборона прокручування, коли модалка відкрита
+    if (showModal) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    // Очистка при закритті
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [showModal]);
 
   const nextImage = () => {
     if (product && currentImageIndex < product.images.length - 1) {
@@ -143,28 +167,43 @@ export default function ProductPage() {
               <li>100% ручна робота</li>
               <li>Натуральні матеріали</li>
               <li>Унікальний дизайн</li>
-              <li>Зручні ручки</li>
             </ul>
           </div>
           <div className="d-grid gap-2">
             <Link
+              to="https://www.instagram.com/svit_crochets?igsh=MWo5bmxkN2czb2lueA=="
+              className="btn btn-primary btn-lg btn-custom-gradient"
+            >
+              Для замовлення пиши мені в Instagram
+            </Link>
+            {/* <Link
               to="/contacts"
               className="btn btn-primary btn-lg btn-custom-gradient"
             >
               Замовити
-            </Link>
-            <Link
+            </Link> */}
+            {/* <Link
               to="/catalog"
               className="btn btn-outline-primary btn-custom-gradient"
             >
               Повернутися до каталогу
-            </Link>
+            </Link> */}
           </div>
         </div>
       </div>
-
+      {/* Top Products Section */}
+      <div className="mb-5 mt-10 container">
+        <h2 className="h3 text-dark mb-4 text-center">Також дивляться</h2>
+        <div className="row g-4">
+          {topProducts.map((product) => (
+            <div key={product.id} className="col-lg-3 col-md-6">
+              <ProductCard product={product} />
+            </div>
+          ))}
+        </div>
+      </div>
       {/* Bootstrap Modal */}
-      {product && (
+      {/* {product && (
         <div
           className={`modal fade ${showModal ? "show d-block" : ""}`}
           tabIndex={-1}
@@ -239,6 +278,43 @@ export default function ProductPage() {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      )} */}
+
+      {product && showModal && (
+        <div className="modal-custom" onClick={handleCloseModal}>
+          <div className="modal-image-container">
+            <img
+              src={product.images[currentImageIndex]}
+              alt={product.name}
+              className="modal-image rounded-custom"
+              onClick={(e) => e.stopPropagation()}
+            />
+            {product.images.length > 1 && (
+              <>
+                <button
+                  className="modal-arrow modal-arrow-prev"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    prevImage();
+                  }}
+                  disabled={currentImageIndex === 0}
+                >
+                  ‹
+                </button>
+                <button
+                  className="modal-arrow modal-arrow-next"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    nextImage();
+                  }}
+                  disabled={currentImageIndex === product.images.length - 1}
+                >
+                  ›
+                </button>
+              </>
+            )}
           </div>
         </div>
       )}

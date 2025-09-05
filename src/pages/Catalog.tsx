@@ -69,9 +69,9 @@ export default function Catalog() {
           </div> */}
 
           {/* Results count */}
-          <p className="text-muted mb-4">
+          {/* <p className="text-muted mb-4">
             Знайдено {filteredProducts.length} сумок
-          </p>
+          </p> */}
 
           {/* Products Grid */}
           {filteredProducts.length > 0 ? (

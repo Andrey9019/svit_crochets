@@ -4,19 +4,19 @@ import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import Catalog from "./pages/Catalog";
 import ProductPage from "./pages/Product";
-import Contacts from "./pages/Contacts";
+// import Contacts from "./pages/Contacts";
 
 function App() {
   return (
     <Router>
-      <div className="App d-flex flex-column min-vh-100">
+      <div className="d-flex flex-column min-vh-100">
         <Header />
         <main className="flex-grow-1">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/catalog" element={<Catalog />} />
             <Route path="/product/:id" element={<ProductPage />} />
-            <Route path="/contacts" element={<Contacts />} />
+            {/* <Route path="/contacts" element={<Contacts />} /> */}
           </Routes>
         </main>
         <Footer />
