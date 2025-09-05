@@ -42,14 +42,14 @@ const Header: React.FC = () => {
                 Каталог
               </Link>
             </li>
-            {/* <li className="nav-item">
+            <li className="nav-item">
               <Link
                 className={`nav-link ${isActive("/contacts")}`}
-                to="/contacts"
+                to="https://www.instagram.com/svit_crochets?igsh=MWo5bmxkN2czb2lueA=="
               >
-                Контакти
+                Instagram
               </Link>
-            </li> */}
+            </li>
           </ul>
         </div>
       </div>
