@@ -4,7 +4,7 @@ export interface Product {
   price: number;
   description: string;
   images: string[];
-  color: string;
+  size: string;
 }
 
 export interface ContactForm {

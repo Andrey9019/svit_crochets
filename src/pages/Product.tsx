@@ -134,9 +134,7 @@ export default function ProductPage() {
                           ? "btn-primary"
                           : "btn-outline-primary"
                       }`}
-                    >
-                      {index + 1}
-                    </button>
+                    />
                   ))}
                 </div>
               </>
@@ -148,8 +146,10 @@ export default function ProductPage() {
         <div className="col-lg-6">
           <h1 className="h2 text-dark mb-3">{product.name}</h1>
           <div className="mb-3">
+            <h6 className="text-dark mb-2">Розміри:</h6>
+
             <span className="badge bg-light text-dark border fs-6">
-              {product.color}
+              {product.size}
             </span>
           </div>
           <div className="mb-4">
